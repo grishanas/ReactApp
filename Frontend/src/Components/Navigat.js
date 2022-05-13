@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as nav from './Navigation';
+import Navigatio from './Navigation';
 
 
 export class Navigation extends React.Component
@@ -29,8 +29,9 @@ export class Navigation extends React.Component
 
     render()
     {
+       let Language=["rus","eng"];
        return <div>
-           <nav.navigatio></nav.navigatio>
+           <Navigatio Language={Language}/>
         </div>
 
     }

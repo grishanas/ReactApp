@@ -1,15 +1,10 @@
 import React,{useState} from "react";
-import Button from '@mui/material/Button';
+import { MenuItem, Select,NativeSelect } from "@mui/material";
 
 
-export function navigatio(props){
+const Navigatio=(props)=>{
 
-    const [Language,setLang] = useState(null);
-
-    const HandleClick=(event)=>{
-        setLang(event.currentTarget);
-    }
-
+    const [Language, ChangeLanguage] = React.useState(String);
 
     return(
         <nav id="menu">
@@ -23,15 +18,28 @@ export function navigatio(props){
                         <a href="#component1" className="NavBarComponent">
                             SomeText
                         </a>
-                        <Button onClick={HandleClick}>
-                            Some Button
-                        </Button>
+
+ 
                         
                        </li>
                    </ul>
+
+                    <div className="nav-bar-right-part">
+                   <NativeSelect 
+                   id="Nav-bar-language-selector"
+                   defaultValue={props.Language[0]}
+                            onChange={(e)=>{ChangeLanguage(e.target.value)}}
+                        >
+                            <option value={props.Language[0]} >{props.Language[1]}</option>
+                            <option value={props.Language[1]} >{props.Language[1]}</option>
+                    </NativeSelect> 
+                    </div>
+                        
                 </div>
             </div>
 
         </nav>
     )
 }
+
+export default Navigatio

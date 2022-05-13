@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Class } from './Class';
+import { Grid,Paper } from "@mui/material";
 
 
 export class Classes extends React.Component
@@ -29,9 +30,28 @@ export class Classes extends React.Component
 
     render()
     {
-       return <div>
-           <Class />
-        </div>
+       return(
+           <div className='container'>
+               <div className='ClassesDescript'>
+               <h1>
+                   {this.props.title? <h1>{this.props.title}</h1>:<h1>что-то типо наших курсов</h1>}
+               </h1>
+               <p>
+                   {this.props.description ? this.props.description :"Какое-то описание курсов"}
+               </p>
+            </div>
+            <Grid xs={12} container className='ClassesGrid' spacing={2}>
+                {this.props.Classes ? this.props.Classes.map((value)=>(
+                    <Grid className='ClassGrid-item' key={value.id} item>
+                        <Paper elevation={1} style={{height:200,width:300}}>
+                        <p>dsa</p>
+                    </Paper>
+                </Grid>
+                )):<p>Load Classes</p>}
+            </Grid>
+            </div>
+            );
+       
 
     }
     
