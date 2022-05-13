@@ -4,6 +4,7 @@ import {Header} from './Components/Header';
 import {Educators} from './Components/Educators';
 import {Classes} from './Components/Сlasses';
 import {Assistent} from './Components/Assistent'
+import {Footer} from './Components/Footer'
 
 function App() 
 {
@@ -29,6 +30,7 @@ function App()
     <Classes Classes={[obj1,obj2,obj5,obj6]}/>
     <Educators Educators={[obj1,obj2,obj5,obj6]} />
     <Assistent/>
+    <Footer />
     </div>
     );
 

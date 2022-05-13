@@ -140,14 +140,22 @@ ul,ol {
     justify-content: center;
 }
 
+.Educators{
+    padding-bottom: 40px;
+}
 
 
 
 
 
 
+/*=======================*/
+/*Footer*/
 
-
+.Footer{
+    min-height:200px;
+    background-color: rgb(26, 72, 66);
+}
 
 
 
@@ -168,3 +176,16 @@ ul,ol {
     right: 200px;
     border-radius: 50%;
 }
+
+.Assistent-popUpWindow{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.Assistent-popUpWindow-ref{
+    display: flex;
+    flex-direction: row;
+}
+
+

@@ -1,5 +1,5 @@
 import React from 'react'
-
+import { Paper } from '@mui/material';
 
 export class Assistent extends React.Component{
 
@@ -26,10 +26,10 @@ export class Assistent extends React.Component{
         <button onClick={this.ChangeState}>{this.state.IsOpen?<img src='https://image.shutterstock.com/image-vector/message-icon-mobile-phone-chat-260nw-1714039993.jpg'/>:<img src='https://image.shutterstock.com/image-vector/message-icon-mobile-phone-chat-260nw-1714039993.jpg'/>}</button>
             {this.state.IsOpen ?
                 
-                <div className='Assistent-popUpWindow'>
+                <Paper className='Assistent-popUpWindow'>
                     <div className='Assistent-popUpWindow-descript'>
                     <h1>
-                        {this.props.title ? this.props.title:''}
+                        {this.props.title ? this.props.title:'Title'}
                     </h1>
                     <p>
                         {this.props.description ? this.props.description:'dsa'}
@@ -43,13 +43,10 @@ export class Assistent extends React.Component{
                                 {value.title}
                             </p>
                             </div>
-
                         )):<p>Loading socia media</p>}
 
                     </div>
-
-
-                </div>
+                </Paper>
             : <p></p>}
         </div>
     );   

@@ -18,6 +18,7 @@ export class Educators extends React.Component
     render()
     {
        return(
+            <div className='Educators'>
            <div className='container'>
                <div className='EducatorsDescript'>
                     <h3>
@@ -36,6 +37,7 @@ export class Educators extends React.Component
                        </Grid>
                    )) :<p>dsa</p> }
                </Grid>
+           </div>
            </div>
        );
 
