@@ -1,39 +1,46 @@
-import * as React from 'react';
-import Navigatio from './Navigation';
+import React,{useState} from "react";
+import { MenuItem, Select,NativeSelect } from "@mui/material";
 
 
-export class Navigation extends React.Component
-{
-    constructor(props){
-        super(props);
-        this.state = { Language:'ru'}
+const Navigatio=(props)=>{
 
-        this.ChangeLanguage = this.ChangeLanguage.bind(this);
-    }
+    const [Language, ChangeLanguage] = React.useState(String);
 
+    return(
+        <nav id="menu">
+            <div className="container">
+                <div className="navigationTabBar">
+                    <div className="NavigationTitle">
+                        {console.log(props)}
+                        <h1>{props.Navigation ? props.Navigation.NavTitle : 'Title Load'}</h1>
+                    </div>
+                   <ul className="nav-bar-list">
+                       {props.Navigation ? props.Navigation.ref.map((value)=>(
+                        <li>
+                        <a href={value.link} className="NavBarComponent">
+                            {value.text}
+                        </a>
 
-    ChangeLanguage(value)
-    {
-        //проверка правильности языка
-        console.log(value);
-        this.setState({Language : value});
-        
-    }
+                       </li>
+                       )):<li></li>}
 
-    componentDidUpdate(props)
-    {
-        console.log('component update with educatots dynamic update');
-    }
+                   </ul>
 
+                    <div className="nav-bar-right-part">
+                   <NativeSelect 
+                   id="Nav-bar-language-selector"
+                   defaultValue={props.Language[0]}
+                            onChange={(e)=>{ChangeLanguage(e.target.value)}}>
+                            <option value={props.Language[0]} >{props.Language[0]}</option>
+                            <option value={props.Language[1]} >{props.Language[1]}</option>
+                    </NativeSelect> 
+                    </div>
+                        
+                </div>
+            </div>
 
-
-    render()
-    {
-       let Language=["rus","eng"];
-       return <div>
-           <Navigatio Language={Language}/>
-        </div>
-
-    }
-    
+        </nav>
+    )
 }
+
+export default Navigatio

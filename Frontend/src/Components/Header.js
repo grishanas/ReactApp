@@ -2,8 +2,20 @@ import React, { Component } from "react";
 
 export const Header = (props) =>{
     return (
-        <header className="Header" style={{backgroundImage : 'url("http://localhost:3001/")'}} >
-            <div className="container">
+        
+        <header className="Header" 
+        
+        style={
+            props.data ?
+            
+            {
+            backgroundImage: `url(${props.data.bgPhoto})`
+            } : 
+            {backgroundColor: '#12223c' } 
+
+            } >
+            
+            <div className="container"> 
             <div className="intro">
                 <div className="overlay">
                     <h1>
@@ -11,9 +23,8 @@ export const Header = (props) =>{
                     </h1>
                     
                     <p>
-                        {props.data ? props.data.paragraph : 'Loading'}
+                        {props.data ? props.data.description : 'Loading'}
                     </p>
-                    
                 </div>
                 
 

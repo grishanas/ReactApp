@@ -1,38 +1,40 @@
 import React,{useState} from "react";
 import { MenuItem, Select,NativeSelect } from "@mui/material";
+import { Route } from "react-router";
+import { Link } from "react-router-dom";
 
 
-const Navigatio=(props)=>{
-
-    const [Language, ChangeLanguage] = React.useState(String);
+export const Navigation=(props)=>{
 
     return(
         <nav id="menu">
             <div className="container">
                 <div className="navigationTabBar">
                     <div className="NavigationTitle">
-                        <h1>{props.data ? props.data.NavTitle : 'Title Load'}</h1>
+                        <Link
+                            to="/">
+                            <h1>GlobalITschool</h1>
+                        </Link>
                     </div>
-                   <ul className="nav-bar-list">
-                       <li>
-                        <a href="#component1" className="NavBarComponent">
-                            SomeText
-                        </a>
-
- 
-                        
+                  { <ul className="nav-bar-list">
+                       {props.Navigation.ref ? props.Navigation.ref.map((value)=>(
+                        <li>
+                        <Link to={value.link} className="NavBarComponent">
+                            {value.text}
+                        </Link>
                        </li>
-                   </ul>
+                       
+                       )):<li><p>Load</p></li>}
+                       </ul>}
 
                     <div className="nav-bar-right-part">
-                   <NativeSelect 
-                   id="Nav-bar-language-selector"
-                   defaultValue={props.Language[0]}
-                            onChange={(e)=>{ChangeLanguage(e.target.value)}}
-                        >
-                            <option value={props.Language[0]} >{props.Language[1]}</option>
-                            <option value={props.Language[1]} >{props.Language[1]}</option>
-                    </NativeSelect> 
+                        {props.Navigation.SocialMedia ? props.Navigation.SocialMedia.map((value)=>(
+                            <div className="nav-bar-SocialMedia">
+                                <a href={value.link}>
+                                    <img src={value.photo}/>
+                                </a>
+                            </div>
+                        )):null}
                     </div>
                         
                 </div>
@@ -42,4 +44,4 @@ const Navigatio=(props)=>{
     )
 }
 
-export default Navigatio
+export default Navigation
