@@ -10,6 +10,7 @@ class AddPhoto extends React.Component{
 
     constructor(props)
     {
+        console.log(props);
         super(props);
         this.state={
             file:null,
@@ -17,8 +18,10 @@ class AddPhoto extends React.Component{
             isVisibleCancel:false,
 
         }
-        if(this.props.state.isSaveState())
+        if(this.props.state.isSaveState!=undefined)
         {
+            if(this.props.state.isSaveState())
+            {
             this.state=this.props.state.getState();
             let reader= new FileReader();
             reader.onloadend=()=>{
@@ -26,7 +29,22 @@ class AddPhoto extends React.Component{
                 this.setState({FileAsUrl:res});  
             }
             reader.readAsDataURL(this.state.file);
+            }
         }
+        else
+            if(props.state.isLoad!=undefined)
+            {
+                if(props.state.isLoad())
+                {
+                    this.state={
+                        FileAsUrl:this.props.state.getUrl()
+                    }
+                }
+            }
+            else
+                {
+                
+            }
 
     }
 
@@ -40,12 +58,13 @@ class AddPhoto extends React.Component{
 
     componentWillUnmount()
     {
-        this.props.state.setState(this.state);
+        //this.props.state.setState(this.state);
     }
 
     Prerander(event){
 
 
+        
         let reader= new FileReader();
         reader.onloadend=()=>{
             let res=reader.result;
@@ -70,7 +89,7 @@ class AddPhoto extends React.Component{
         }}
 
        >
-        {(this.state.file!=null)?
+        {(this.state.FileAsUrl!=null)?
         /* вывод окна для добавления фото */
         <Box>
             <Paper 
@@ -90,7 +109,8 @@ class AddPhoto extends React.Component{
             : null
             }
             </Paper>
-            <Typography>{this.state.file.name}</Typography>
+            {(this.state.file!=null)?<Typography>{this.state.file.name}</Typography>:null}
+            
 
         </Box>:
         /* вывод самого фото */

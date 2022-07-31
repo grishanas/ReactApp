@@ -8,8 +8,9 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 import AddTeacher from '../Components/AdminPanel/AddTeacher'
-import { AddClasses } from "../Components/AdminPanel/AddClasses";
+import AddClass  from "../Components/AdminPanel/AddClass";
 import { useEffect } from "react";
+import PutchTeacher from "../Components/AdminPanel/PutchTeacher";
 
 const baseURL = 'http://localhost:3001';
 const URL='/Admin';
@@ -212,14 +213,17 @@ export const AdminPanel=(props)=>{
                     console.log(PagePanel);
                     switch(PagePanel)
                     {
+                        case 0:
+                            
                         case 1:
-                            console.log('AddTeacher');
+                          
                             return <AddTeacher />;
                         case 2:
-                            console.log('AddClass')
-                            return <AddClasses />
+                    
+                            return <PutchTeacher/>
                         default:
-                            return null;
+                            return <AddClass />
+                            
                     }
                     })()}
                 </Box>

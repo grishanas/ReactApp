@@ -2,19 +2,19 @@ import axios from "axios";
 
 class PhotoState
 {
-    #isStateSave;
+    #isStateSav;
     #file
     #lang
     #anchor
     #url
     constructor(props)
     {
-        this.#isStateSave=false;
+        this.#isStateSav=false;
     }
 
     isSaveState()
     {
-        return this.#isStateSave;
+        return this.#isStateSav;
     }
 
     setUrl(URL)
@@ -24,7 +24,7 @@ class PhotoState
 
     setState(state)
     {
-        this.#isStateSave=true;
+        this.#isStateSav=true;
         this.#file=state.file;
        
     }

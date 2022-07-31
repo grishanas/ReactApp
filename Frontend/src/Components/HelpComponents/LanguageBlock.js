@@ -3,8 +3,14 @@ class TeacherLanguage
     constructor(props)
     {
         this.lang=props.lang;
-        this.personalData=props.personalData;
-        this.description = props.description;
+        this.personalData=props.personalData?props.personalData:'';
+        this.description = props.description?props.teacherDescripion:'';
+    }
+
+    setState(state)
+    {
+        this.personalData=state.personalData?state.personalData:'';
+        this.description = state.description?state.teacherDescripion:'';
     }
 
     getState()
@@ -12,7 +18,7 @@ class TeacherLanguage
         return {
             'lang':this.lang,
             'personalData':this.personalData,
-            'description':this.description,
+            'teacherDescripion':this.description,
         }
     }
 }

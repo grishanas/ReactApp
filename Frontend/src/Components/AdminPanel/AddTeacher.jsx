@@ -2,10 +2,10 @@ import * as React from "react";
 import { Box, fontSize } from "@mui/system";
 import { Button, Dialog, DialogContent, DialogContentText, DialogTitle, IconButton, Input, MenuItem, OutlinedInput, Paper, Select, TextField, Typography } from "@mui/material";
 import AddPhotoAlternateSharpIcon from '@mui/icons-material/AddPhotoAlternateSharp';
-import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import axios from "axios";
 import AddPhoto from './AddPhoto'
 import PhotoState from '../HelpComponents/PhotoState'
+import addTeacher from "../HelpComponents/AddTeacher";
 
 const baseURL='http://localhost:3001';
 
@@ -27,22 +27,74 @@ class AddTeacher extends React.Component
     constructor(props)
     {
         super(props);
-    
+        let Teacher;
+        
+        if(props.hasOwnProperty('teacher'))
+        {
+            Teacher= props.teacher;
+        }
+        else
+        {
+            Teacher= new addTeacher();
+        }
+
         this.state={
             photo: new PhotoState(),
-            allowedLang: [],
-            persanalData:'',
+            lang: undefined,
+            personalData:'',
             teacherDescripion:'',
-
-
+            teacher:Teacher,
+            isTextFieldEnable:false,
         }
-        console.log(this.state)
-    }    
+
+    }
+    
+    changeTextField(name,e){
+        console.log(name);
+        console.log(e.target.value)
+        this.setState({[name]:e.target.value})
+    }
 
 
     changeLanguage(e)
     {
-        this.setState({allowedLang:e.target.value})
+        this.setState({isTextFieldEnable:true});
+        if(this.state.lang!=undefined)
+        {
+            console.log('lang!=undefined')
+            let tmp={'lang':this.state.lang,'personalData':this.state.personalData,'teacherDescripion':this.state.teacherDescripion};
+            this.state.teacher.setState(tmp);
+
+        }
+        console.log('==');
+        let TeacherData = this.state.teacher.getTeacherInformation(e.target.value.key);
+        console.log(TeacherData);
+        this.setState(TeacherData.getState());
+
+
+    }
+
+
+    sendRequest()
+    {
+
+        /*
+            пересылка запроса дочернему элементу
+        */
+
+    }
+
+    resetState()
+    {
+
+        this.setState({
+            photo: new PhotoState(),
+            lang: undefined,
+            personalData:'',
+            teacherDescripion:'',
+            teacher: new addTeacher(),
+            isTextFieldEnable:false,
+        })
     }
 
 
@@ -60,11 +112,23 @@ class AddTeacher extends React.Component
                 <Box style={{display:'flex',margin:'auto', flexDirection:'column'}}>
                 
                 <Select sx={{m:1,mt:3,width:300}} style={{margin:'auto',marginTop:10}}
-                    multiple
-                    value={this.state.allowedLang}
-                    placeholder='выбор языка'
-                    onChange={(e)=>this.changeLanguage(e)}
-                >
+                    displayEmpty={(this.state.lang==undefined)?true:false}
+                    value={this.state.lang}
+                    renderValue={(selected)=>{
+
+                        if(this.state.lang===undefined)
+                        {
+                            selected=undefined;
+                        }
+                        
+                        if(selected==undefined)
+                        {
+                            return (<em>placeholder</em>)
+                        }
+                       
+                        return selected.value
+                    }}
+                    onChange={(e)=>this.changeLanguage(e)}>
                     {allowedLangs.map((lang)=>(
                         <MenuItem
                             key={lang.key}
@@ -76,24 +140,27 @@ class AddTeacher extends React.Component
                     ))}
                 </Select>
                 <TextField
+                disabled={!this.state.isTextFieldEnable}
                 placeholder={this.props.lang?this.props.lang.persanalData:"Персональные данные"}
-                value={this.state.persanalData}
+                value={this.state.personalData}
+                onChange={(e)=>this.changeTextField('personalData',e)}
                 >
                 </TextField>
                 <TextField
+                disabled={!this.state.isTextFieldEnable}
                 multiline
                 rows={4}
                 placeholder={this.props.lang?this.props.lang.teacherDescripion:"Описание"}
                 variant="standard"
                 value={this.state.teacherDescripion}
+                onChange={(e)=>this.changeTextField('teacherDescripion',e)}
                 />
-            
                 </Box>
                 <Box margin={'auto'}>
-                <Button>
+                <Button onClick={(e)=>{console.log(this.state)}}>
                     добавить
                 </Button>
-                <Button>
+                <Button onClick={(e)=>{this.resetState()}}>
                     очистить
                 </Button>
                 </Box>
