@@ -1,4 +1,4 @@
-import * as React from 'react'
+import React from 'react'
 import axios, { Axios } from 'axios'
 import { Button, FormControl, Grid, InputBase, InputLabel, MenuItem, NativeSelect, OutlinedInput, Paper, Select, Typography } from '@mui/material';
 import AddPhoto from './AddPhoto';
