@@ -1,19 +1,24 @@
-import AddAPhoto from "@mui/icons-material/AddAPhoto"
 import { Button, FormControl, Grid, InputBase, InputLabel, MenuItem, NativeSelect, OutlinedInput, Paper, Select, TextField, Typography } from '@mui/material';
-import * as React from "react"
-import AddPhoto from "./AddPhoto"
+import * as React from "react"  
 import { Leson } from "../HelpComponents/Class";
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+import AddPhoto from './AddPhoto';
 
 
 class PreviewClass extends React.Component{
 
     constructor(props)
     {
-        super(props)
+  
+        super(props);
+        console.log('PreviewClass');
         let tmp=new Leson();
         //this.state.leson=props.Leson.getState();
-        this.state={leson:tmp.getState()};
-        console.log(this.state);
+        this.state={
+            leson:tmp.getState(),
+        };
         this.state.clearedDate=null;
 
     }
@@ -23,28 +28,92 @@ class PreviewClass extends React.Component{
     {
     
         return(
-           <Paper style={{width:500}}>
-               <Grid container columnSpacing={2} direction="row">
+           <Paper style={{width:700}}>
+               <Grid container columnSpacing={2} direction="row"
+
+               >
                     <Grid item xs='auto'>
-                        {/*<AddPhoto state={this.state.photo}/>*/}
+                        <AddPhoto state={this.state.leson.PreviewPhoto}/>
                     </Grid>
                     <Grid item xs={12} sm container>
-                        <Grid item xs container direction="column">
+                        <Grid item xs   container
+                        direction="column"
+                        justifyContent="flex-start"
+                        rowSpacing={4}
+                        >
                             <Grid item>
-                                <FormControl>
+                                <FormControl fullWidth>
                                     <InputLabel>Choose lang</InputLabel>
-                                    <Select>    
-                                        <MenuItem value={10}>Ten</MenuItem>
-                                        <MenuItem value={20}>Twenty</MenuItem>
-                                        <MenuItem value={30}>Thirty</MenuItem>
+                                    <Select
+                                        label="Choose lang"
+                                    >    
+                                        <MenuItem key={10} value={10}>Ten</MenuItem>
+                                        <MenuItem key={30} value={20}>Twenty</MenuItem>
+                                        <MenuItem key={20} value={30}>Thirty</MenuItem>
                                     </Select>
                                 </FormControl>
                             </Grid>
                             <Grid item>
-                                <InputBase multiline maxRows={4} placeholder='название курса' value={this.state.description} onChange={(e)=>{this.changeLabel('description',e)}}/>
+                            <Grid item xs container direction="row">
+                                <Grid item xs={6}>
+                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                <DatePicker
+                                    renderInput={(props) => <TextField {...props} />}
+                                    label="DateTimePicker"
+                                    value={this.state.clearedDate}
+                                    onChange={(newValue) => {
+                                    this.setState({clearedDate:newValue})
+                                    }}/>
+                                </LocalizationProvider>
+                                </Grid>
+                                <Grid item xs={6}>
+                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                <DatePicker
+                                    renderInput={(props) => <TextField {...props} />}
+                                    label="DateTimePicker"
+                                    value={this.state.clearedDate}
+                                    onChange={(newValue) => {
+                                    this.setState({clearedDate:newValue})
+                                    }}/>
+                                </LocalizationProvider>
+                                </Grid>
+                                <Grid item xs={6}>
+                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                <DatePicker
+                                    renderInput={(props) => <TextField {...props} />}
+                                    label="DateTimePicker"
+                                    value={this.state.clearedDate}
+                                    onChange={(newValue) => {
+                                    this.setState({clearedDate:newValue})
+                                    }}/>
+                                </LocalizationProvider>
+                                </Grid>
+                                <Grid item xs={6}>
+                                <LocalizationProvider dateAdapter={AdapterDateFns}>
+                                <DatePicker
+                                    renderInput={(props) => <TextField {...props} />}
+                                    label="DateTimePicker"
+                                    value={this.state.clearedDate}
+                                    onChange={(newValue) => {
+                                    this.setState({clearedDate:newValue})
+                                    }}/>
+                                </LocalizationProvider>
+                                </Grid>
+ 
+
                             </Grid>
-                            <Grid item>
-                                <InputBase placeholder='Дата начала' value={this.state.personalData} onChange={(e)=>{this.changeLabel('personalData',e)}}/>
+                            </Grid>
+                            <Grid item alignItems="center">
+                                <InputBase placeholder='Название' value={this.state.ClassName} onChange={(e)=>{this.changeLabel('personalData',e)}}/>
+                                <InputBase multiline maxRows={4} placeholder='Описание' value={this.state.Description} onChange={(e)=>{this.changeLabel('description',e)}}/>
+                            </Grid>
+                            <Grid item xs container alignItems="flex-end">
+                                <Button>
+                                    Press
+                                </Button>
+                                <Button>
+                                    second Press
+                                </Button>
                             </Grid>
                         </Grid>
                     </Grid>

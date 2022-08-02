@@ -1,3 +1,4 @@
+import LoadPhoto from "./LoadPhoto"
 
 
 class LesonDescription{
@@ -31,9 +32,12 @@ class Leson {
     #EndTime
     #isUpdate
     #LesonDescription
+    #id
+    #IsLoad
     constructor(props)
     {
         this.#isUpdate=false;
+        this.#PreviewPhoto=new LoadPhoto();
 
     }
 
@@ -55,7 +59,7 @@ class Leson {
             let i=0;
             for(i;i<this.#LesonDescription.length;i++)
             {
-                if(this.#LesonDescription[i].Lang=== newLeson.Lang)
+                if(this.#LesonDescription[i].Lang === newLeson.Lang)
                 {
                     this.#LesonDescription[i].setState(newLeson);
                     break

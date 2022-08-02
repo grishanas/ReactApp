@@ -214,15 +214,20 @@ export const AdminPanel=(props)=>{
                     switch(PagePanel)
                     {
                         case 0:
+                            break;
                             
                         case 1:
                           
                             return <AddTeacher />;
+                            break;
                         case 2:
                     
                             return <PutchTeacher/>
+                            break;
+
                         default:
                             return <AddClass />
+                            break;
                             
                     }
                     })()}

@@ -61,14 +61,11 @@ class AddTeacher extends React.Component
         this.setState({isTextFieldEnable:true});
         if(this.state.lang!=undefined)
         {
-            console.log('lang!=undefined')
             let tmp={'lang':this.state.lang,'personalData':this.state.personalData,'teacherDescripion':this.state.teacherDescripion};
             this.state.teacher.setState(tmp);
 
         }
-        console.log('==');
         let TeacherData = this.state.teacher.getTeacherInformation(e.target.value.key);
-        console.log(TeacherData);
         this.setState(TeacherData.getState());
 
 
@@ -170,71 +167,3 @@ class AddTeacher extends React.Component
 }
 
 export default AddTeacher;
-
-/*export const AddTeacher=()=>{
-
-
-    const Requst = axios.create({
-        baseURL: baseURL,
-        headers:{ 'Content-Type': 'application/json' },
-        });
-
-    const [open,setOpen]=React.useState(false);
-
-    const OpenDilog=()=>{
-        setOpen(true);
-    }
-
-    const DialogAddPhoto =()=>{
-
-        const [smallPhoto,setSmallPhoto]=React.useState(null);
-        const [largePhoto,setLargePhoto]=React.useState(null);
-        const [isSmallPhotoAdd,showSmallPhotoInput]=React.useState();
-
-
-        const CloseDialog=()=>{
-            setOpen(false);
-
-        }
-
-    
-        return(
-        <Box>
-            <Dialog open={open} onClose={CloseDialog}>
-                <DialogTitle>
-                    SomeTitle
-                </DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        some help text 
-                    </DialogContentText>
-                    <IconButton>
-                        <AddAPhotoIcon fontSize="large"/>
-                    </IconButton>
-                </DialogContent>
-
-            </Dialog>
-        </Box>
-        )
-    }
-
-
-    const [TeacherPages,setTeacherPages] = React.useState();
-
-    return(
-        <Box>
-
-            <AddTeachedr/>
-            {/*<Button>
-                <Typography>Clear</Typography>
-            </Button>
-            <Button onClick={OpenDilog}>
-                <Paper>
-                    
-                    <AddPhotoAlternateSharpIcon/>
-                    <DialogAddPhoto/>
-                </Paper>
-            </Button>}
-        </Box>
-    )
-}*/

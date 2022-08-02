@@ -11,7 +11,7 @@ class addTeacher
         this.#isTeacherSafe=false;
     }
 
-    async setState(state)
+    setState(state)
     {
         this.#isTeacherSafe= true;
         if(this.#Languages!=undefined)
