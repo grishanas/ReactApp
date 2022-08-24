@@ -1,27 +1,63 @@
+import { Grid, Toolbar } from "@mui/material";
+import { Box} from "@mui/system";
 import React, { Component } from "react";
+import { renderMatches } from "react-router";
 
-export const Header = (props) =>{
-    return (
-        <header className="Header" style={{backgroundImage : 'url("http://localhost:3001/")'}} >
-            <div className="container">
-            <div className="intro">
-                <div className="overlay">
-                    <h1>
-                        {props.data ? props.data.title : 'Loading'}
-                    </h1>
-                    
-                    <p>
-                        {props.data ? props.data.paragraph : 'Loading'}
-                    </p>
-                    
-                </div>
+export default class Header extends React.Component
+{
+
+    constructor(props)
+    {
+        super(props)
+        console.log(props)
+
+    }
+
+    componentDidUpdate()
+    {
+        console.log(this.props);
+    }
+
+    render()
+    {
+
+        return (
+            
+            <>
+            <Toolbar/>
+            <Box className="Header" component="main"
+            sx={{overflow: 'auto', flexGrow: 1}}
+            style={
+                this.props.header?
+                {
+                backgroundImage: `url(${this.props.header.bgPhoto})`
+                } : 
+                {backgroundColor: '#12223c'} 
+    
+            }>
                 
+                <Box margin='auto' height={'100%'}>
+                    <Grid container 
+                    margin={'auto'}
+                      maxWidth={"1000px"}
+                      direction="column"
+                      justifyContent="center"
+                      alignItems="center"
+                      height={'100%'}
+                      
+                    >
+                        <Grid item style={{color:'#000000'}}>
+                            {this.props.header?this.props.header.title:"Load"}
+                        </Grid>
+                        <Grid item>
+                            {this.props.header?this.props.header.description:"Load"}
+                        </Grid>
+                    </Grid>
+                </Box>
 
-            </div>
-            </div>
-
-        </header>
-
-    )
-
+            </Box>
+        </>
+    
+        )
+    } 
 }

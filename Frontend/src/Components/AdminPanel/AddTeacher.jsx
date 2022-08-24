@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Box, fontSize } from "@mui/system";
-import { Button, Dialog, DialogContent, DialogContentText, DialogTitle, IconButton, Input, MenuItem, OutlinedInput, Paper, Select, TextField, Typography } from "@mui/material";
+import { Button, Card, Dialog, DialogContent, DialogContentText, DialogTitle, IconButton, Input, MenuItem, OutlinedInput, Paper, Select, TextField, Typography } from "@mui/material";
 import AddPhotoAlternateSharpIcon from '@mui/icons-material/AddPhotoAlternateSharp';
 import axios from "axios";
 import AddPhoto from './AddPhoto'
@@ -9,23 +9,11 @@ import addTeacher from "../HelpComponents/AddTeacher";
 
 const baseURL='http://localhost:3001';
 
-const allowedLangs=[
-    {'key':'Rus','value':'русский'},
-    {'key':'b','value':'b'},
-    {'key':'c','value':'c'},
-    {'key':'d','value':'d'}
-]
-
-/**
- * allowedLangs = transmited via props contain object {key,value} with allowed array of languages and they adaptation
- * 
- * 
- * 
- */
 class AddTeacher extends React.Component
 {
     constructor(props)
     {
+        console.log(props);
         super(props);
         let Teacher;
         
@@ -81,6 +69,16 @@ class AddTeacher extends React.Component
 
     }
 
+    sendTeacher()
+    {
+        if(this.state.lang!=undefined)
+        {
+            let tmp={'lang':this.state.lang,'personalData':this.state.personalData,'teacherDescripion':this.state.teacherDescripion};
+            this.state.teacher.setState(tmp);
+        }
+        
+    }
+
     resetState()
     {
 
@@ -98,7 +96,7 @@ class AddTeacher extends React.Component
     render()
     {
         return(
-            <Box style={{
+            <Card style={{
                 display:'flex',
                 justifyContent:'center',
                 flexDirection:'column',
@@ -126,7 +124,7 @@ class AddTeacher extends React.Component
                         return selected.value
                     }}
                     onChange={(e)=>this.changeLanguage(e)}>
-                    {allowedLangs.map((lang)=>(
+                    {this.props.lang?this.props.lang.map((lang)=>(
                         <MenuItem
                             key={lang.key}
                             value={lang}
@@ -134,7 +132,7 @@ class AddTeacher extends React.Component
                         >
                             {lang.value}
                         </MenuItem>
-                    ))}
+                    )):null}
                 </Select>
                 <TextField
                 disabled={!this.state.isTextFieldEnable}
@@ -154,14 +152,14 @@ class AddTeacher extends React.Component
                 />
                 </Box>
                 <Box margin={'auto'}>
-                <Button onClick={(e)=>{console.log(this.state)}}>
+                <Button onClick={(e)=>{this.sendTeacher()}}>
                     добавить
                 </Button>
                 <Button onClick={(e)=>{this.resetState()}}>
                     очистить
                 </Button>
                 </Box>
-            </Box>
+            </Card>
         )
     }
 }

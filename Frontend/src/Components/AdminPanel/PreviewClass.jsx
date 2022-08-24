@@ -13,7 +13,6 @@ class PreviewClass extends React.Component{
     {
   
         super(props);
-        console.log('PreviewClass');
         let tmp=new Leson();
         //this.state.leson=props.Leson.getState();
         this.state={

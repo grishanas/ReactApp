@@ -17,223 +17,97 @@ const URL='/Admin';
 
 
 
-export const AdminPanel=(props)=>{
+export class AdminPanel extends React.Component{
 
-
-    axios.defaults.withCredentials = true;
-    const Requst = axios.create({
-    baseURL: baseURL,
-    headers:{ 'Content-Type': 'application/json' },
-    });
-
-    const [PageLanguage,setPageLanguage] = React.useState();
-    const [PagePanel,setPagePanel] = React.useState();
-    const [RightSideBar,SetOpenSideBar] = React.useState(false);
-
-    const CloseUserAccount =()=>{
-        console.log('close');
-        localStorage.removeItem("RefreshToken");
-        Requst.post('/Admin/SigIn/Leav');
-    }; 
-
-    const SetPagePanel=(e)=>{
-        setPagePanel(e);
+    constructor(props)
+    {
+        super(props)
+        this.state={pagePanel:0,
+            rightSideBar:false,
+        }
     }
 
-    const ChangeLanguage=(e)=>{
-        Requst.get(URL+`/Data/Localization/?lang=${e}`).then((answer)=>{
-            switch(e)
-            {
-                case 200:{
-                    setPageLanguage(e);
-                    break;
-                }
-            }
-        });
+    SetPagePanel(index)
+    {
+        this.setState({pagePanel:index});
     }
 
-    useEffect(()=>{
-        document.title=PagePanel;
-    })
+    toggleRightBar()
+    {
+        this.setState({rightSideBar:!this.state.rightSideBar})
+    }
 
-    const toggleRightBar=()=>{
-        SetOpenSideBar(!RightSideBar);
-    };
-
-    /*Requst.post('/Admin/SigIn').then((e)=>{
-        
-    })*/
-
-
-    const rightSideBar = (props)=>(
-        
-        <Box component="div" style={{
-            width: 250,
-            height: "100%"
-        }}>
-            
-            <List sx={{width:'100%'}}>
-           
-            <List sx={{width:'100%',
-                }}
-                subheader={
-                    <ListSubheader component={'div'}>
-                        {props.RightSideBar.ListSubHeader ? props.RightSideBar.ListSubHeader:"Language"}
-                    </ListSubheader>
-                }
-            >
-                <Box
-                    style={{
-                        display:"flex",
-                        flexDirection:"column",
-                        alignItems:"center"
-                    }}>
-                
-            {props.RightSideBar.Buttons ? props.RightSideBar.Buttons.map((value)=>(
-                <ListItemButton style={{
-                    width:'90%',
-                    borderRadius:8,
-                    background:"#aaf",
-                    
-                }} onClick={ChangeLanguage}
-                >
-                    <ListItemText primary={value.a}/>
-
-                </ListItemButton>
-            )):null}
-               
-                </Box>
-                
-            </List>
-
-            <ListItemButton onClick={CloseUserAccount}>
-                <ListItemText primary={props.RightSideBar.Exit ? props.RightSideBar.Exit:"Exit"}/>
-            </ListItemButton>
-            
-
-            </List>
-
-        </Box>
-    );
-
-    return(
-        <>
-        <Box sx={{ display: 'flex' }}>
-            <CssBaseline/>
-            <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-                <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                    >
-                    <MenuIcon />
-                    </IconButton>
-
-                    <Box sx={{ display: { xs: 'none', sm: 'block' }}}>
-                    <Link to="/" style={{ color:'#ff22f2',
-                        textDecoration:'none',
-                        }}>
-                    <Typography >
-                        sometext
-                    </Typography>
-                    </Link>  
-                    </Box>
-                    <Box sx={{ flexGrow: 1 }} />
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton onClick={toggleRightBar}>
-                            <SettingsIcon />
-                        </IconButton>
-
-                    </Box>
-
-
-                   
-
-                    <Drawer open={RightSideBar} anchor="right" onClose={toggleRightBar}
-                        sx={{zIndex:(theme)=>theme.zIndex.drawer+1}}>
-                        {rightSideBar({
-                            "RightSideBar":{
-                                "ListSubHeader":"Выберите язык",
-                                "Buttons":[{
-                                    "a":"a"
-                                },{
-                                    "a":"b"
-                                }]
-                            }
-
-                        })}
-                    </Drawer>
-                    </Toolbar>
-                    </AppBar>
-                    
-                
-                <Drawer
-                    anchor="left"
-                    open={true}
-                    sx={{
-                        width: 200,
-                        flexShrink: 0,
-                        [`& .MuiDrawer-paper`]: { width: 200, boxSizing: 'border-box' },}}
-                        variant="persistent">
-                    <Toolbar />
-                    <Box sx={{ overflow: 'auto' }}>
-                    <List>
-                        {['Inbox', 'Starred', '2', '3', '4', '5'].map((text, index) => (
-                        <ListItem key={text} disablePadding>
-                        <ListItemButton key={text} onClick={(e)=>(SetPagePanel(index))}>
-                            <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                            </ListItemIcon>
-                        <ListItemText primary={text} />
-                        </ListItemButton>
-                        </ListItem>))}
-                    </List>
-                    <Divider />
-                         <List>
-                            {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                                <ListItem key={text} disablePadding>
-                                    <ListItemButton>
-                                        <ListItemIcon>
-                                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                                        </ListItemIcon>
-                                        <ListItemText primary={text} />
-                                    </ListItemButton>
-                                </ListItem>
-                            ))}
+    render()
+    {
+        return(
+            <>
+            <Box sx={{ display: 'flex' }}>
+                    <Drawer
+                        anchor="left"
+                        open={true}
+                        sx={{
+                            width: 200,
+                            flexShrink: 0,
+                            [`& .MuiDrawer-paper`]: { width: 200, boxSizing: 'border-box' },}}
+                            variant="persistent">
+                        <Toolbar />
+                        <Box sx={{ overflow: 'auto' }}>
+                        <List>
+                            {['Inbox', 'Starred', '2', '3', '4', '5'].map((text, index) => (
+                            <ListItem key={text} disablePadding>
+                            <ListItemButton key={text} onClick={(e)=>(this.SetPagePanel(index))}>
+                                <ListItemIcon>
+                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                </ListItemIcon>
+                            <ListItemText primary={text} />
+                            </ListItemButton>
+                            </ListItem>))}
                         </List>
-                    </Box>
-                </Drawer>
-                
-                <Box component="main" sx={{overflow: 'auto', flexGrow: 1, bgcolor: 'background.default', p: 3 }}>
-                <Toolbar />
-                    {(()=>{
-                    console.log(PagePanel);
-                    switch(PagePanel)
-                    {
-                        case 0:
-                            break;
-                            
-                        case 1:
-                          
-                            return <AddTeacher />;
-                            break;
-                        case 2:
+                        <Divider />
+                             <List>
+                                {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                                    <ListItem key={text} disablePadding>
+                                        <ListItemButton>
+                                            <ListItemIcon>
+                                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                                            </ListItemIcon>
+                                            <ListItemText primary={text} />
+                                        </ListItemButton>
+                                    </ListItem>
+                                ))}
+                            </List>
+                        </Box>
+                    </Drawer>
                     
-                            return <PutchTeacher/>
-                            break;
 
-                        default:
-                            return <AddClass />
-                            break;
-                            
-                    }
-                    })()}
-                </Box>
-        </Box>
-        </>
-    );
+                    <Box component="main" sx={{overflow: 'auto', flexGrow: 1, bgcolor: 'background.default', p: 3 }}>
+                    <Toolbar />
+                        {(()=>{
+                        switch(this.state.pagePanel)
+                        {
+                            case 0:
+                                break;
+                                
+                            case 1:
+                              
+                                return <AddTeacher lang={this.props.lang? this.props.lang.allowedLanguages:null} />;
+                                break;
+                            case 2:
+                        
+                                return <PutchTeacher/>
+                                break;
+    
+                            default:
+                                return <AddClass />
+                                break;
+                                
+                        }
+                        })()}
+                    </Box> 
+            </Box>
+            </>
+        )
+    }
 
-}
+} 
+    

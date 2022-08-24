@@ -5,13 +5,13 @@ class TeacherLanguage
     {
         this.lang=props.lang;
         this.personalData=props.personalData?props.personalData:'';
-        this.description = props.description?props.teacherDescripion:'';
+        this.teacherDescripion=props.teacherDescripion?props.teacherDescripion:'';
     }
 
     setState(state)
     {
         this.personalData=state.personalData?state.personalData:'';
-        this.description = state.description?state.teacherDescripion:'';
+        this.description = state.teacherDescripion?state.teacherDescripion:'';
     }
 
     getState()
@@ -19,7 +19,7 @@ class TeacherLanguage
         return {
             'lang':this.lang,
             'personalData':this.personalData,
-            'teacherDescripion':this.description,
+            'teacherDescripion':this.teacherDescripion,
         }
     }
 }

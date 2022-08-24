@@ -13,39 +13,6 @@ const allowedLangs=[
 ]
 
 
-class RenderElementOfCourseProgramm extends React.Component{
-
-    constructor(props)
-    {
-        super(props)
-        if(props.leson!=undefined)
-            this.state = props.leson.getState();
-        else
-        {
-            let tmp=new CourseProgramms().getState();
-            this.state = tmp.getState();
-            this.state.leson=tmp
-        }
-    }
-
-    render()
-    {
-        return(
-            <Card>
-                <Grid container direction='column'>
-                    <Grid item>
-                        <InputBase></InputBase>
-                    </Grid>
-                    <Grid item >
-                       <Typography> dsa</Typography>
-                    </Grid>
-                </Grid>
-            </Card>
-        )
-    }
-}
-
-
 class CourseProgramm extends React.Component{
 
     constructor(props)
@@ -70,7 +37,8 @@ class CourseProgramm extends React.Component{
     setLang(e)
     {
         this.setState({lang:e.target.value});
-        this.setState({'courseProgramm':this.state.course.setLang(e.target.value.key)});
+        this.setState({courseProgramm:this.state.course.setLang(e.target.value.key)});
+        this.setState({lesons:this.state.course.setLang(e.target.value.key).getLesons()})
         
     }
 
@@ -84,12 +52,10 @@ class CourseProgramm extends React.Component{
                     direction='column'
                     spacing={2}>
                 <Grid item container
-
                     justifyContent="center"
                     direction='column'
                     alignItems="center"
-                    spacing={2}
-                > 
+                    spacing={2}> 
                     <Grid item>
                     <FormControl style={{width:300}}>
                         <Select
@@ -138,12 +104,12 @@ class CourseProgramm extends React.Component{
                         <Grid item container spacing={4} direction="row">
                         {(this.state.lesons!=undefined)?this.state.lesons.map((item,index)=>{
                             return (
-                            <Grid item>
+                            <Grid item justifySelf='center'>
                                 <Paper
                                     style={{width:300,minHeight:200}}>
                                         <Grid container  direction='column' alignItems='center'>
                                             <Grid item marginBottom={4}>
-                                                <TextField  variant='standard' size='medium' multiline rowsMax={2} style={{minWidth:200}} placeholder="dsa"></TextField>
+                                                <TextField  variant='standard' size='medium' multiline  style={{minWidth:200}} placeholder="dsa"></TextField>
                                             </Grid>
                                             <Grid item container direction='column' alignItems='center' justifyContent='center'>
                                                 {item.points.map((point,pointIndex)=>(
@@ -154,7 +120,7 @@ class CourseProgramm extends React.Component{
                                                         <Grid item>
                                                         <TextField      
                                                         variant='standard'
-                                                        value={point.point} rowsMax={2} style={{minWidth:160}}  placeholder="dsa"></TextField>
+                                                        value={point.point} multiline rowsMax={2} style={{minWidth:160}}  placeholder="dsa"></TextField>
                                                         </Grid>
                                                         <Grid item>
                                                             <IconButton onClick={(e)=>this.setState({lesons:this.state.courseProgramm.deletePoint({lesonid:index,pointid:pointIndex})})}>

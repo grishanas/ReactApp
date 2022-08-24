@@ -7,6 +7,7 @@ class CourseProgramm{
     {
         this.lang=props
     }
+    
 
 
     deletePoint(Point)

@@ -26,7 +26,7 @@ class AddClass extends React.Component{
             justifyContent="flex-start"
             direction="column"
             alignItems='center'
-            spacing={2}
+            rowGap={10}
             >
                 <Grid item xs='auto'>
                     <Grid item>

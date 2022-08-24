@@ -1,9 +1,63 @@
 import * as React from 'react';
-import { Grid,Paper } from "@mui/material";
+import { Grid,Paper,Box } from "@mui/material";
 import {Link } from 'react-router-dom';
+import axios from 'axios';
+import { baseURL } from '../App';
 
 
-export const  Classes=(props)=>
+export class Classes extends React.Component{
+
+    constructor(props)
+    {
+        super(props)
+
+        this.state={
+            request:axios.create({
+                baseURL:baseURL,
+                headers:{ 'Content-Type': 'application/json' },
+            })
+        }
+    }
+
+
+    async RequestClasses()
+    {
+
+    }
+
+    componentDidMount()
+    {
+
+    }
+
+
+    render()
+    {
+        return(
+            <Box className='container'>
+                <Box className='Classes'>
+                    <Box className='ClassesDescript'>
+                        <h1>{this.props.classes?this.props.classes.title:"Load"}</h1>
+                    </Box>
+                </Box>
+                <Grid container className='ClassesGrid' spacing={2}>
+                    {this.state.classList?this.state.classList.map((value)=>(
+                        <Grid item>
+                            <Link/>
+                        </Grid>
+                    )):null}
+
+                </Grid>
+                
+
+            </Box>
+        )
+    }
+}
+
+
+
+/*export const  Classes=(props)=>
 {
 
        return(
@@ -42,9 +96,5 @@ export const  Classes=(props)=>
             </Grid>
             </div>
             </div>
-            );
-       
-
-    
-    
-}
+            );   
+}*/
