@@ -78,9 +78,26 @@ class AddTeacher extends React.Component
     sendRequest()
     {
 
+        let req= axios.create({
+            baseURL:baseURL,
+            headers:{ 'Content-Type': 'application/json' },
+        })
+        req.post('/Test',"dsa").then((e)=>{
+            console.log(e)
+        })
         /*
             пересылка запроса дочернему элементу
         */
+
+    }
+
+    sendTeacher()
+    {
+        if(this.state.lang!=undefined)
+        {
+            let tmp={'lang':this.state.lang,'personalData':this.state.personalData,'teacherDescripion':this.state.teacherDescripion};
+            this.state.teacher.setState(tmp);
+        }
 
     }
 

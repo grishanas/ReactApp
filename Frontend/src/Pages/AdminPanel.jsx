@@ -90,7 +90,7 @@ export const AdminPanel=(props)=>{
                     }}>
                 
             {props.RightSideBar.Buttons ? props.RightSideBar.Buttons.map((value)=>(
-                <ListItemButton style={{
+                <ListItemButton style={{    
                     width:'90%',
                     borderRadius:8,
                     background:"#aaf",
